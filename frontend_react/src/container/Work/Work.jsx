@@ -21,7 +21,20 @@ const Work = () => {
     });
   }, []);
 
-  const handleWorkFilter = (item) => {};
+  const handleWorkFilter = (item) => {
+    setActiveFilter(item);
+    setAnimateCard([{ y: 100, opacity: 0 }]);
+
+    setTimeout(() => {
+      setAnimateCard([{ y: 0, opacity: 1 }]);
+
+      if (item === "All") {
+        setFilterWork(works);
+      } else {
+        setFilterWork(works.filter((work) => work.tags.includes(item)));
+      }
+    }, 500);
+  };
   return (
     <>
       <h2 className="head-text">
@@ -61,7 +74,7 @@ const Work = () => {
                   ease: "easeInOut",
                   staggerChildren: 0.5,
                 }}
-                className="app__work-hover app_flex"
+                className="app__work-hover app__flex"
               >
                 <a href={work.projectLink} target="_blank" rel="norefer">
                   <motion.div
@@ -70,7 +83,7 @@ const Work = () => {
                     transition={{
                       duration: 0.25,
                     }}
-                    className="app_flex"
+                    className="app__flex"
                   >
                     <AiFillEye />
                   </motion.div>
@@ -82,7 +95,7 @@ const Work = () => {
                     transition={{
                       duration: 0.25,
                     }}
-                    className="app_flex"
+                    className="app__flex"
                   >
                     <AiFillGithub />
                   </motion.div>
